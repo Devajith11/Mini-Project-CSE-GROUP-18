@@ -1,13 +1,71 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/container-queries";
+
+/* 
+  1. Font Imports 
+  Public Sans for clean typography and Material Symbols for icons.
+*/
+
+/* 
+  2. Theme Definition 
+  These are the global design tokens (colors, fonts, radius) used throughout the app.
+*/
+@theme {
+  --color-primary: #144bb8;
+  /* Royal Blue - Main brand color */
+  --color-secondary: #ffffff;
+  /* White */
+  --color-accent: #2e7d32;
+  /* Success Green - Buttons/Actions */
+  --color-background-light: #f6f6f8;
+  --color-background-dark: #111621;
+
+  --font-display: "Public Sans", sans-serif;
+
+  --radius-default: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* 
+  3. Base Styles 
+  Default settings for HTML elements.
+*/
+@layer base {
+  body {
+    /* Apply the global font and handle light/dark mode background colors */
+    @apply font-display bg-background-light dark:bg-background-dark text-[#111318] dark:text-white;
+    min-height: max(884px, 100dvh);
+  }
+
+  /* Configuration for Material Icons */
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    line-height: 1;
+  }
+}
+
+/* 
+  4. Custom Styling 
+  Enhancing the browser's default scrollbar with a modern look.
+*/
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-600;
 }
