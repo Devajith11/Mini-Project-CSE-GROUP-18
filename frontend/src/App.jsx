@@ -8,6 +8,7 @@ import AdmissionForm from './pages/AdmissionForm'
 import DocumentUpload from './pages/DocumentUpload'
 import StudentDashboard from './pages/StudentDashboard'
 import AdminDashboard from './pages/AdminDashboard'
+import Chatbot from './pages/Chatbot'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/upload" element={<DocumentUpload />} />
             <Route path="/dashboard" element={<StudentDashboard />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/chat" element={<Chatbot />} />
           </Routes>
         </main>
         <Footer />
