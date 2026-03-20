@@ -1,16 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "GECW Admission Management System Backend",
   "main": "index.js",
- "scripts": {
-  "start": "node index.js",
-  "dev": "nodemon index.js"
-},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.6",
@@ -21,6 +17,6 @@
     "multer": "^2.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.0.0"
   }
 }
