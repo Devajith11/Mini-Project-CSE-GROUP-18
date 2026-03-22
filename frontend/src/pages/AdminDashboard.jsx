@@ -387,7 +387,7 @@ const AdminDashboard = () => {
                 {/* Academic Info */}
                 <div className="bg-blue-700 p-5 rounded-2xl text-white mb-6">
                   <p className="text-xs font-black uppercase opacity-70 mb-3">Academic Merit</p>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
                       <p className="text-xs opacity-60 uppercase">KEAM Rank</p>
                       <p className="text-2xl font-black">
@@ -401,10 +401,25 @@ const AdminDashboard = () => {
                       </p>
                     </div>
                   </div>
+                  <div className="grid grid-cols-2 gap-4 border-t border-white/20 pt-4">
+                    <div>
+                      <p className="text-xs opacity-60 uppercase">Roll No</p>
+                      <p className="text-sm font-bold">
+                        {selectedStudent.academicDetails?.keamRollNo || 'N/A'}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs opacity-60 uppercase">School Name</p>
+                      <p className="text-sm font-bold truncate" title={selectedStudent.academicDetails?.schoolName}>
+                        {selectedStudent.academicDetails?.schoolName || 'N/A'}
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Contact */}
+                {/* Personal Info */}
                 <div className="space-y-3 mb-6">
+                  <p className="text-xs font-bold text-gray-500 uppercase">Personal Details</p>
                   <div className="flex items-center gap-3 bg-white p-3 rounded-xl border border-gray-100">
                     <span className="material-symbols-outlined text-blue-700">call</span>
                     <div>
@@ -414,9 +429,48 @@ const AdminDashboard = () => {
                   </div>
                   <div className="flex items-center gap-3 bg-white p-3 rounded-xl border border-gray-100">
                     <span className="material-symbols-outlined text-blue-700">mail</span>
-                    <div>
+                    <div className="overflow-hidden">
                       <p className="text-xs text-gray-400">Email</p>
-                      <p className="text-sm font-bold">{selectedStudent.personalDetails?.email || 'N/A'}</p>
+                      <p className="text-sm font-bold truncate max-w-[150px]" title={selectedStudent.personalDetails?.email}>
+                        {selectedStudent.personalDetails?.email || 'N/A'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 bg-white p-3 rounded-xl border border-gray-100">
+                    <span className="material-symbols-outlined text-blue-700">cake</span>
+                    <div>
+                      <p className="text-xs text-gray-400">Date of Birth</p>
+                      <p className="text-sm font-bold">
+                        {selectedStudent.personalDetails?.dob ? new Date(selectedStudent.personalDetails.dob).toLocaleDateString() : 'N/A'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 bg-white p-3 rounded-xl border border-gray-100">
+                    <span className="material-symbols-outlined text-blue-700 mt-0.5">home</span>
+                    <div>
+                      <p className="text-xs text-gray-400">Address</p>
+                      <p className="text-sm font-bold">{selectedStudent.personalDetails?.address || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Guardian Info */}
+                <div className="space-y-3 mb-6">
+                  <p className="text-xs font-bold text-gray-500 uppercase">Guardian Details</p>
+                  <div className="bg-white p-4 rounded-xl border border-gray-100">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-xs text-gray-400">Name</p>
+                        <p className="text-sm font-bold">{selectedStudent.guardianDetails?.name || 'N/A'}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-400">Relation</p>
+                        <p className="text-sm font-bold">{selectedStudent.guardianDetails?.relation || 'N/A'}</p>
+                      </div>
+                      <div className="col-span-2">
+                        <p className="text-xs text-gray-400">Phone</p>
+                        <p className="text-sm font-bold">{selectedStudent.guardianDetails?.phone || 'N/A'}</p>
+                      </div>
                     </div>
                   </div>
                 </div>

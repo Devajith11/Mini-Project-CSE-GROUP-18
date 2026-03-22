@@ -10,7 +10,7 @@ const auth = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret123');
         req.user = decoded;
         next();
     } catch (err) {
@@ -21,20 +21,22 @@ const auth = (req, res, next) => {
 // Admin only
 const adminAuth = (req, res, next) => {
     auth(req, res, () => {
-        if (req.user.role !== 'admin') {
+        if (req.user && req.user.role === 'admin') {
+            next();
+        } else {
             return res.status(403).json({ message: 'Access denied. Admins only.' });
         }
-        next();
     });
 };
 
 // Student only
 const studentAuth = (req, res, next) => {
     auth(req, res, () => {
-        if (req.user.role !== 'student') {
+        if (req.user && req.user.role === 'student') {
+            next();
+        } else {
             return res.status(403).json({ message: 'Access denied. Students only.' });
         }
-        next();
     });
 };
 

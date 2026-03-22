@@ -2,6 +2,21 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
+const Input = ({ label, name, type = 'text', placeholder, formData, handleChange }) => (
+  <div className="flex flex-col gap-2">
+    <label className="text-sm font-semibold text-gray-700">{label}</label>
+    <input
+      type={type}
+      name={name}
+      value={formData[name]}
+      onChange={handleChange}
+      placeholder={placeholder}
+      className="rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+      required
+    />
+  </div>
+);
+
 const AdmissionForm = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -83,22 +98,6 @@ const AdmissionForm = () => {
     }
   };
 
-  // ── INPUT COMPONENT (reusable) ──
-  const Input = ({ label, name, type = 'text', placeholder }) => (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-semibold text-gray-700">{label}</label>
-      <input
-        type={type}
-        name={name}
-        value={formData[name]}
-        onChange={handleChange}
-        placeholder={placeholder}
-        className="rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
-        required
-      />
-    </div>
-  );
-
   // ── RENDER EACH STEP ──
   const renderStep = () => {
     switch (step) {
@@ -107,10 +106,10 @@ const AdmissionForm = () => {
       case 1:
         return (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Input label="Full Name" name="fullName" placeholder="As per SSLC" />
-            <Input label="Email" name="email" type="email" placeholder="yourname@example.com" />
-            <Input label="Date of Birth" name="dob" type="date" />
-            <Input label="Mobile Number" name="phone" type="tel" placeholder="10-digit number" />
+            <Input formData={formData} handleChange={handleChange} label="Full Name" name="fullName" placeholder="As per SSLC" />
+            <Input formData={formData} handleChange={handleChange} label="Email" name="email" type="email" placeholder="yourname@example.com" />
+            <Input formData={formData} handleChange={handleChange} label="Date of Birth" name="dob" type="date" />
+            <Input formData={formData} handleChange={handleChange} label="Mobile Number" name="phone" type="tel" placeholder="10-digit number" />
             <div className="flex flex-col gap-2 md:col-span-2">
               <label className="text-sm font-semibold text-gray-700">Permanent Address</label>
               <textarea
@@ -128,9 +127,9 @@ const AdmissionForm = () => {
       case 2:
         return (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Input label="Guardian Name" name="guardianName" placeholder="Full name" />
-            <Input label="Relation" name="relation" placeholder="e.g. Father, Mother" />
-            <Input label="Guardian Mobile" name="guardianPhone" type="tel" placeholder="10-digit number" />
+            <Input formData={formData} handleChange={handleChange} label="Guardian Name" name="guardianName" placeholder="Full name" />
+            <Input formData={formData} handleChange={handleChange} label="Relation" name="relation" placeholder="e.g. Father, Mother" />
+            <Input formData={formData} handleChange={handleChange} label="Guardian Mobile" name="guardianPhone" type="tel" placeholder="10-digit number" />
           </div>
         );
 
@@ -138,10 +137,10 @@ const AdmissionForm = () => {
       case 3:
         return (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Input label="KEAM Rank" name="keamRank" type="number" placeholder="Your KEAM rank" />
-            <Input label="KEAM Roll Number" name="keamRollNo" placeholder="Roll number" />
-            <Input label="Plus Two Marks (%)" name="plusTwoMarks" type="number" placeholder="e.g. 85" />
-            <Input label="Previous School Name" name="schoolName" placeholder="School name" />
+            <Input formData={formData} handleChange={handleChange} label="KEAM Rank" name="keamRank" type="number" placeholder="Your KEAM rank" />
+            <Input formData={formData} handleChange={handleChange} label="KEAM Roll Number" name="keamRollNo" placeholder="Roll number" />
+            <Input formData={formData} handleChange={handleChange} label="Plus Two Marks (%)" name="plusTwoMarks" type="number" placeholder="e.g. 85" />
+            <Input formData={formData} handleChange={handleChange} label="Previous School Name" name="schoolName" placeholder="School name" />
           </div>
         );
 
@@ -182,7 +181,7 @@ const AdmissionForm = () => {
               </select>
             </div>
 
-            <Input label="Annual Family Income" name="income" type="number" placeholder="As per income certificate" />
+            <Input formData={formData} handleChange={handleChange} label="Annual Family Income" name="income" type="number" placeholder="As per income certificate" />
 
             <div className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-gray-700">Other Reservations</label>
