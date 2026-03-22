@@ -53,14 +53,16 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: 'Internal server error', error: err.message });
 });
 
-// ── START SERVER ──
-const startServer = async () => {
+// ── DATABASE & ADMIN INIT ──
+const initApp = async () => {
     try {
         await connectDB();
-
+        
         // Create default admin on startup
+        const Admin = require('./models/Admin');
         const adminExists = await Admin.findOne({ username: 'admin_gecw' });
         if (!adminExists) {
+            const bcrypt = require('bcryptjs');
             const hashedPassword = await bcrypt.hash('admin123', 10);
             await Admin.create({
                 username: 'admin_gecw',
@@ -72,15 +74,21 @@ const startServer = async () => {
         } else {
             console.log('✅ Default Admin "admin_gecw" already exists.');
         }
-
-        app.listen(PORT, () => {
-            console.log(`🚀 Server running on port ${PORT}`);
-            console.log(`📡 API: http://localhost:${PORT}/api`);
-        });
     } catch (err) {
-        console.error('❌ Failed to start server:', err);
-        process.exit(1);
+        console.error('❌ Failed to initialize app:', err);
     }
 };
 
-startServer();
+// Start initialization
+initApp();
+
+// ── EXPORT FOR VERCEL ──
+module.exports = app;
+
+// Only listen if run directly
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running locally on port ${PORT}`);
+        console.log(`📡 Local API: http://localhost:${PORT}/api`);
+    });
+}
