@@ -15,7 +15,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
           <div className="size-10 flex items-center justify-center">
             <img
-              src="/logo-transparent.png"
+              src="https://www.gecwyd.ac.in/wp-content/uploads/2017/01/cropped-logo.png"
               alt="GECW Logo"
               className="w-full h-full object-contain overflow-hidden rounded-full"
             />
