@@ -42,7 +42,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/chatbot', chatbotRoutes);
 
 // Catch-all for API 404
-app.use('/api/*', (req, res) => {
+app.use('/api', (req, res) => {
     console.log(`❌ API_NOT_FOUND: ${req.method} ${req.originalUrl}`);
     res.status(404).json({ message: `API route not found: ${req.method} ${req.originalUrl}` });
 });
