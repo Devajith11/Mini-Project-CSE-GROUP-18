@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../services/api';
+import api, { BASE_URL } from '../services/api';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -559,7 +559,7 @@ const AdminDashboard = () => {
                       <div className="w-full max-w-xl bg-white shadow-xl rounded-xl p-2 min-h-[400px] flex items-center justify-center border border-gray-200 mb-4 overflow-hidden">
                         {selectedStudent.documents[selectedDocIndex]?.url.toLowerCase().endsWith('.pdf') ? (
                           <iframe
-                            src={`http://localhost:5001${selectedStudent.documents[selectedDocIndex].url}`}
+                            src={`${BASE_URL}${selectedStudent.documents[selectedDocIndex].url}`}
                             width="100%"
                             height="400px"
                             title="PDF Preview"
@@ -567,7 +567,7 @@ const AdminDashboard = () => {
                           />
                         ) : (
                           <img
-                            src={`http://localhost:5001${selectedStudent.documents[selectedDocIndex]?.url}`}
+                            src={`${BASE_URL}${selectedStudent.documents[selectedDocIndex]?.url}`}
                             alt="Document"
                             className="max-w-full h-auto rounded"
                           />
