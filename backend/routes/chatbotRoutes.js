@@ -16,7 +16,7 @@ router.post('/query', async (req, res) => {
         let bestMatch = null;
 
         for (const item of knowledge) {
-            if (item.keywords.some(kw => lowerQuery.includes(kw))) {
+            if (item.keywords.some(kw => new RegExp(`\\b${kw}\\b`, 'i').test(lowerQuery))) {
                 bestMatch = item;
                 break;
             }
@@ -49,8 +49,8 @@ router.post('/seed', async (req, res) => {
                 category: 'Fees'
             },
             {
-                keywords: ['department', 'branch', 'cse', 'ece', 'eee', 'mechanical', 'civil', 'seats'],
-                answer: 'Departments & Intake:\n- CSE, ECE, EEE, ME, Civil Engineering.\n- 60 seats per branch + Lateral Entry.\n- Placement: TCS, Infosys and more.',
+                keywords: ['course', 'courses', 'department', 'departments', 'branch', 'branches', 'cse', 'ece', 'eee', 'mechanical', 'me', 'civil', 'ce', 'seats', 'intake'],
+                answer: 'Departments & Intake:\n- Branches: CSE, ECE, EEE, ME, Civil Engineering.\n- 60 seats per branch + Lateral Entry seats.\n- Recent recruiters: TCS, Infosys and more.',
                 category: 'General'
             },
             {

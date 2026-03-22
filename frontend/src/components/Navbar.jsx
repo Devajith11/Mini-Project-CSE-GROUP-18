@@ -13,11 +13,11 @@ const Navbar = () => {
 
         {/* ── LOGO ── */}
         <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-          <div className="size-10 rounded-full bg-white flex items-center justify-center p-1 border border-white/20">
+          <div className="size-10 flex items-center justify-center">
             <img
-              src="https://www.gecwyd.ac.in/wp-content/uploads/2017/01/cropped-logo.png"
+              src="/logo-transparent.png"
               alt="GECW Logo"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain overflow-hidden rounded-full"
             />
           </div>
           <div className="flex flex-col">

@@ -6,11 +6,11 @@ const Footer = () => {
       <div className="flex flex-col items-center text-center gap-4 max-w-lg mx-auto">
 
         {/* Logo */}
-        <div className="size-12 bg-white rounded-full flex items-center justify-center overflow-hidden border border-white/20 p-1">
+        <div className="size-12 flex items-center justify-center overflow-hidden">
           <img
-            src="https://www.gecwyd.ac.in/wp-content/uploads/2017/01/cropped-logo.png"
+            src="/logo-transparent.png"
             alt="GECW Logo"
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain overflow-hidden rounded-full"
           />
         </div>
 
