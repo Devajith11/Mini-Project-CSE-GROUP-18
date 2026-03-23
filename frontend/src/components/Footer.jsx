@@ -6,13 +6,14 @@ const Footer = () => {
       <div className="flex flex-col items-center text-center gap-4 max-w-lg mx-auto">
 
         {/* Logo */}
-        <div className="size-12 flex items-center justify-center overflow-hidden">
+        <div className="relative size-16 flex items-center justify-center p-2 bg-white/5 rounded-2xl border border-white/10 shadow-lg group">
           <img
-            src="/logo-transparent.png"
-            alt="GECW Logo"
-            className="w-full h-full object-contain overflow-hidden rounded-full"
+            src={`${import.meta.env.BASE_URL}logo-transparent.png`}
+            alt="GECW Official Logo"
+            className="w-full h-full object-contain filter drop-shadow-md group-hover:scale-105 transition-transform duration-500"
           />
         </div>
+
 
         {/* College Name */}
         <div>

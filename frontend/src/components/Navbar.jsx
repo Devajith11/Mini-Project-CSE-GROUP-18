@@ -11,20 +11,22 @@ const Navbar = () => {
     <header className="bg-blue-900 text-white shadow-md sticky top-0 z-50">
       <div className="flex items-center p-4 justify-between max-w-7xl mx-auto w-full">
 
-        {/* ── LOGO ── */}
         <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-          <div className="size-10 flex items-center justify-center">
+          <div className="relative size-12 flex items-center justify-center p-1 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20 shadow-inner group">
             <img
-              src="https://www.gecwyd.ac.in/wp-content/uploads/2017/01/cropped-logo.png"
+              src={`${import.meta.env.BASE_URL}logo-transparent.png`}
               alt="GECW Logo"
-              className="w-full h-full object-contain overflow-hidden rounded-full"
+              className="w-full h-full object-contain filter drop-shadow-sm group-hover:scale-110 transition-transform duration-300"
             />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-base font-bold leading-tight">GEC Wayanad</h1>
-            <span className="text-xs text-white/80">Govt. Engineering College</span>
+            <h1 className="text-lg font-black tracking-tight leading-none">GEC Wayanad</h1>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mt-1">
+              Government Engineering College
+            </span>
           </div>
         </Link>
+
 
         {/* ── RIGHT SIDE ── */}
         <div className="flex items-center gap-4">
