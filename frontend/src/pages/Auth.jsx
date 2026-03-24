@@ -142,9 +142,20 @@ const Auth = ({ isRegister, isAdmin }) => {
 
             {/* Password */}
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-gray-400">
-                Password
-              </label>
+              <div className="flex justify-between items-center">
+                <label className="text-xs font-bold uppercase tracking-widest text-gray-400">
+                  Password
+                </label>
+                {!isAdmin && !isRegister && (
+                  <button
+                    type="button"
+                    onClick={() => navigate('/forgot-password')}
+                    className="text-xs font-bold text-blue-600 hover:text-blue-800 hover:underline"
+                  >
+                    Forgot Password?
+                  </button>
+                )}
+              </div>
               <div className="relative">
                 <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
                   style={{ fontSize: '20px' }}>key</span>

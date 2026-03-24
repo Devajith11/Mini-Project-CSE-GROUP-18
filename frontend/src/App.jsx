@@ -5,6 +5,11 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Auth from './pages/Auth'
 import AdmissionForm from './pages/AdmissionForm'
+import DocumentUpload from './pages/DocumentUpload'
+import StudentDashboard from './pages/StudentDashboard'
+import AdminDashboard from './pages/AdminDashboard'
+import Chatbot from './pages/Chatbot'
+import ForgotPassword from './pages/ForgotPassword'
 
 function App() {
   return (
@@ -16,8 +21,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Auth isRegister={false} />} />
             <Route path="/register" element={<Auth isRegister={true} />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/chat" element={<Chatbot />} />
             <Route path="/admin/login" element={<Auth isRegister={false} isAdmin={true} />} />
             <Route path="/apply" element={<AdmissionForm />} />
+            <Route path="/upload" element={<DocumentUpload />} />
+            <Route path="/dashboard" element={<StudentDashboard />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
           </Routes>
         </main>
         <Footer />

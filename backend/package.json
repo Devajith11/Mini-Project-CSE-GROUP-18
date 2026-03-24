@@ -1,22 +1,22 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend for GECW Admission Management",
+  "description": "GECW Admission Management System Backend",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon --ignore uploads/ index.js"
   },
   "dependencies": {
-    "bcryptjs": "^3.0.3",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.2.1",
-    "multer": "^2.0.2"
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^9.2.4",
+    "multer": "^2.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "nodemon": "^3.0.0"
   }
 }
