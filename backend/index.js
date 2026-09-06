@@ -4,7 +4,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 
 // Load .env file
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -22,12 +22,53 @@ const PORT = process.env.PORT || 5001;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Logger
 app.use((req, res, next) => {
     console.log(`📨 SERVER_HIT: ${req.method} ${req.originalUrl}`);
     next();
+});
+
+// ── DB CONNECTION (cached for serverless) ──
+let dbConnected = false;
+const ensureDB = async () => {
+    if (!dbConnected) {
+        await connectDB();
+        dbConnected = true;
+    }
+};
+
+// ── DEFAULT ADMIN SETUP (cached for serverless) ──
+let adminCreated = false;
+const ensureAdmin = async () => {
+    if (!adminCreated) {
+        const adminExists = await Admin.findOne({ username: 'admin_gecw' });
+        if (!adminExists) {
+            const hashedPassword = await bcrypt.hash('admin123', 10);
+            await Admin.create({
+                username: 'admin_gecw',
+                password: hashedPassword,
+                role: 'Admission Clerk',
+                branch: 'All'
+            });
+            console.log('✅ Default Admin "admin_gecw" created.');
+        } else {
+            console.log('✅ Default Admin "admin_gecw" already exists.');
+        }
+        adminCreated = true;
+    }
+};
+
+// Middleware to ensure DB + admin on every request (serverless-safe)
+app.use(async (req, res, next) => {
+    try {
+        await ensureDB();
+        await ensureAdmin();
+        next();
+    } catch (err) {
+        console.error('❌ Startup middleware error:', err);
+        res.status(500).json({ message: 'Server initialization failed' });
+    }
 });
 
 // ── ROUTES ──
@@ -53,34 +94,25 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: 'Internal server error', error: err.message });
 });
 
-// ── START SERVER ──
-const startServer = async () => {
-    try {
-        await connectDB();
+// ── START SERVER (local dev only) ──
+if (process.env.NODE_ENV !== 'production') {
+    const startServer = async () => {
+        try {
+            await ensureDB();
+            await ensureAdmin();
 
-        // Create default admin on startup
-        const adminExists = await Admin.findOne({ username: 'admin_gecw' });
-        if (!adminExists) {
-            const hashedPassword = await bcrypt.hash('admin123', 10);
-            await Admin.create({
-                username: 'admin_gecw',
-                password: hashedPassword,
-                role: 'Admission Clerk',
-                branch: 'All'
+            app.listen(PORT, () => {
+                console.log(`🚀 Server running on port ${PORT}`);
+                console.log(`📡 API: http://localhost:${PORT}/api`);
             });
-            console.log('✅ Default Admin "admin_gecw" created.');
-        } else {
-            console.log('✅ Default Admin "admin_gecw" already exists.');
+        } catch (err) {
+            console.error('❌ Failed to start server:', err);
+            process.exit(1);
         }
+    };
 
-        app.listen(PORT, () => {
-            console.log(`🚀 Server running on port ${PORT}`);
-            console.log(`📡 API: http://localhost:${PORT}/api`);
-        });
-    } catch (err) {
-        console.error('❌ Failed to start server:', err);
-        process.exit(1);
-    }
-};
+    startServer();
+}
 
-startServer();
+// Export for Vercel serverless
+module.exports = app;

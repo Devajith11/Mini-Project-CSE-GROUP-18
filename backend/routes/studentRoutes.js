@@ -37,7 +37,7 @@ router.put('/update', [auth, studentAuth], async (req, res) => {
     }
 });
 
-// Upload Document
+// Upload Document (stores as Base64 in MongoDB for Vercel serverless)
 router.post('/upload', [auth, studentAuth], upload.single('document'), async (req, res) => {
     try {
         if (!req.file) {
@@ -47,9 +47,16 @@ router.post('/upload', [auth, studentAuth], upload.single('document'), async (re
         if (!student) {
             return res.status(404).json({ message: 'Student not found' });
         }
+
+        // Convert buffer to Base64 data URI
+        const mimeType = req.file.mimetype;
+        const base64Data = req.file.buffer.toString('base64');
+        const dataUri = `data:${mimeType};base64,${base64Data}`;
+
         const newDoc = {
             name: req.body.name || req.file.originalname,
-            url: `/uploads/${req.file.filename}`,
+            url: dataUri,
+            originalName: req.file.originalname,
             status: 'Pending'
         };
         student.documents.push(newDoc);

@@ -8,7 +8,7 @@ const StudentDashboard = () => {
   const [loading, setLoading] = useState(true);
 
   // ── FETCH STUDENT PROFILE FROM BACKEND ──
-  // Calls: GET /api/student/profile (Member 2 - Midhun's API)
+  // Calls: GET /api/student/profile 
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem('token');
@@ -20,7 +20,7 @@ const StudentDashboard = () => {
       }
 
       try {
-        // API call to backend (Member 2 - Midhun P M built this)
+        // API call to backend 
         const res = await api.get('/student/profile');
         setStudent(res.data);
       } catch (err) {
