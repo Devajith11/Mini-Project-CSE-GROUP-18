@@ -67,7 +67,7 @@ app.use(async (req, res, next) => {
         next();
     } catch (err) {
         console.error('❌ Startup middleware error:', err);
-        res.status(500).json({ message: 'Server initialization failed' });
+        res.status(500).json({ message: 'Database connection failed: ' + err.message });
     }
 });
 
