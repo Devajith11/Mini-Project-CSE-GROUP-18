@@ -557,9 +557,14 @@ const AdminDashboard = () => {
                     <>
                       {/* File preview */}
                       <div className="w-full max-w-xl bg-white shadow-xl rounded-xl p-2 min-h-[400px] flex items-center justify-center border border-gray-200 mb-4 overflow-hidden">
-                        {selectedStudent.documents[selectedDocIndex]?.url.toLowerCase().endsWith('.pdf') ? (
+                        {(() => {
+                          const docUrl = selectedStudent.documents[selectedDocIndex]?.url || '';
+                          const isDataUri = docUrl.startsWith('data:');
+                          const isPdf = isDataUri ? docUrl.startsWith('data:application/pdf') : docUrl.toLowerCase().endsWith('.pdf');
+                          const src = isDataUri ? docUrl : `${BASE_URL}${docUrl}`;
+                          return isPdf ? (
                           <iframe
-                            src={`${BASE_URL}${selectedStudent.documents[selectedDocIndex].url}`}
+                            src={src}
                             width="100%"
                             height="400px"
                             title="PDF Preview"
@@ -567,11 +572,12 @@ const AdminDashboard = () => {
                           />
                         ) : (
                           <img
-                            src={`${BASE_URL}${selectedStudent.documents[selectedDocIndex]?.url}`}
+                            src={src}
                             alt="Document"
                             className="max-w-full h-auto rounded"
                           />
-                        )}
+                        );
+                        })()}
                       </div>
 
                       {/* Document feedback */}

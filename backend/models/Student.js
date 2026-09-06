@@ -33,6 +33,7 @@ const StudentSchema = new mongoose.Schema({
         {
             name: String,
             url: String,
+            originalName: String,
             status: {
                 type: String,
                 enum: ['Pending', 'Verified', 'Rejected'],
